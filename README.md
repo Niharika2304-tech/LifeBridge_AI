@@ -1,3 +1,4 @@
+
 # LifeBridge AI 🌉
 > **PromptWars H2H Hackathon Entry**  
 > *“From confusion to clarity.”*
@@ -72,3 +73,6 @@ The server will automatically detect and use it for all future analyses.
 - **Zero API Key Leaks**: `GEMINI_API_KEY` resides strictly in the Node.js server environment.
 - **Zero Fabricated Emergency Contacts**: All phone numbers and URLs point to real, authentic government registries (112, 108, IMD, NDMA, 1912).
 - **Assisting, Not Dispatching**: LifeBridge AI is an assistive structuring engine and does not claim direct CAD dispatch authority.
+=======
+# LifeBridge_AI
+

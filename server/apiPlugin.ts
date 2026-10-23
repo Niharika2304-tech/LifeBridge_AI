@@ -1,9 +1,9 @@
 import type { Plugin } from 'vite';
-import statusHandler from '../api/status';
-import analyzeHandler from '../api/analyze';
-import simulateHandler from '../api/simulate';
-import setKeyHandler from '../api/set-key';
-import { getResolvedApiKey } from '../api/_utils';
+import statusHandler from '../api/status.js';
+import analyzeHandler from '../api/analyze.js';
+import simulateHandler from '../api/simulate.js';
+import setKeyHandler from '../api/set-key.js';
+import { getResolvedApiKey } from '../api/_utils.js';
 
 export { getResolvedApiKey };
 

@@ -1,6 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
-import { AnalysisResult, Category, ExtractedFact, ActionStep, VerifiedResource } from '../src/types';
-import { VERIFIED_RESOURCES_INDIA, VERIFIED_RESOURCES_INTERNATIONAL } from '../src/data/verifiedResources';
+import type { AnalysisResult, Category, ExtractedFact, ActionStep, VerifiedResource } from '../src/types.js';
+import { VERIFIED_RESOURCES_INDIA, VERIFIED_RESOURCES_INTERNATIONAL } from '../src/data/verifiedResources.js';
 
 const SYSTEM_INSTRUCTION = `
 You are the AI Intelligence Engine of LifeBridge AI (PromptWars H2H Edition).

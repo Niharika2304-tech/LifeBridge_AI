@@ -1,6 +1,6 @@
-import { DEMO_ANALYSES, EXAMPLE_SCENARIOS } from '../src/data/examples';
-import { getLocalizedResources } from '../src/data/verifiedResources';
-import { AnalysisResult, Category } from '../src/types';
+import { DEMO_ANALYSES, EXAMPLE_SCENARIOS } from '../src/data/examples.js';
+import { getLocalizedResources } from '../src/data/verifiedResources.js';
+import type { AnalysisResult, Category } from '../src/types.js';
 
 export function generateServerFallback(
   text: string, 

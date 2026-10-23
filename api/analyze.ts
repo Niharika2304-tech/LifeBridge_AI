@@ -1,6 +1,6 @@
-import { analyzeReportWithGeminiServer } from '../server/geminiService';
-import { generateServerFallback } from './_fallback';
-import { getResolvedApiKey, readJsonBody, sendJson, handleCors } from './_utils';
+import { analyzeReportWithGeminiServer } from '../server/geminiService.js';
+import { generateServerFallback } from './_fallback.js';
+import { getResolvedApiKey, readJsonBody, sendJson, handleCors } from './_utils.js';
 
 export default async function handler(req: any, res: any) {
   if (handleCors(req, res)) return;

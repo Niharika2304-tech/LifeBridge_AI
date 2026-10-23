@@ -1,8 +1,8 @@
-import statusHandler from './status';
-import analyzeHandler from './analyze';
-import simulateHandler from './simulate';
-import setKeyHandler from './set-key';
-import { sendJson, handleCors } from './_utils';
+import statusHandler from './status.js';
+import analyzeHandler from './analyze.js';
+import simulateHandler from './simulate.js';
+import setKeyHandler from './set-key.js';
+import { sendJson, handleCors } from './_utils.js';
 
 export default async function handler(req: any, res: any) {
   if (handleCors(req, res)) return;

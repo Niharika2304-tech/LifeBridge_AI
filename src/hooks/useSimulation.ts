@@ -39,15 +39,22 @@ export function useSimulation(): UseSimulationReturn {
       });
 
       let data: any;
-      try {
-        data = await resp.json();
-      } catch (parseErr) {
-        const text = await resp.text();
-        throw new Error(text || 'Invalid server response (non-JSON)');
+      const contentType = resp.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        try {
+          data = await resp.json();
+        } catch {
+          const text = await resp.text().catch(() => '');
+          throw new Error(`Invalid JSON response from server (${resp.status}): ${text.slice(0, 100)}`);
+        }
+      } else {
+        const text = await resp.text().catch(() => '');
+        const cleanSnippet = text.replace(/<[^>]*>?/gm, '').trim().slice(0, 150);
+        throw new Error(`Server returned non-JSON response (${resp.status} ${resp.statusText}): ${cleanSnippet || 'Please check deployment route configuration.'}`);
       }
 
-      if (!resp.ok) {
-        throw new Error(data.message || data.error || 'Simulation failed');
+      if (!resp.ok || !data.success) {
+        throw new Error(data.message || data.error || `Simulation failed (${resp.status})`);
       }
 
       if (!data.result) {

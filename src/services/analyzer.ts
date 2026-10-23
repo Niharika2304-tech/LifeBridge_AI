@@ -6,15 +6,33 @@ export interface AnalyzeOptions {
   allowFallback?: boolean;
 }
 
+async function parseJsonResponse(response: Response): Promise<any> {
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+    try {
+      return await response.json();
+    } catch {
+      const text = await response.text().catch(() => '');
+      throw new Error(`Invalid JSON response from server (${response.status}): ${text.slice(0, 100)}`);
+    }
+  }
+
+  // Handle HTML or text error pages (e.g. Vercel 404/504)
+  const text = await response.text().catch(() => '');
+  const cleanSnippet = text.replace(/<[^>]*>?/gm, '').trim().slice(0, 150);
+  throw new Error(`Server returned non-JSON response (${response.status} ${response.statusText}): ${cleanSnippet || 'Please check deployment route configuration.'}`);
+}
+
 export async function getServerStatus(): Promise<ServerStatusResponse> {
   try {
     const res = await fetch('/api/status');
     if (!res.ok) {
-      return { configured: false, model: 'gemini-3.5-flash', sdk: '@google/genai', message: 'Status check failed.' };
+      return { configured: false, model: 'gemini-3.5-flash', sdk: '@google/genai', message: `Status check returned HTTP ${res.status}.` };
     }
-    return await res.json();
+    const data = await parseJsonResponse(res);
+    return data;
   } catch (e: any) {
-    return { configured: false, model: 'gemini-3.5-flash', sdk: '@google/genai', message: 'Could not connect to server status endpoint.' };
+    return { configured: false, model: 'gemini-3.5-flash', sdk: '@google/genai', message: e.message || 'Could not connect to server status endpoint.' };
   }
 }
 
@@ -25,7 +43,8 @@ export async function setServerApiKey(apiKey: string): Promise<{ success: boolea
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ apiKey })
     });
-    return await res.json();
+    const data = await parseJsonResponse(res);
+    return data;
   } catch (e: any) {
     return { success: false, configured: false, message: e.message || 'Failed to communicate with server.' };
   }
@@ -57,7 +76,7 @@ export async function analyzeReport(
     })
   });
 
-  const data = await response.json();
+  const data = await parseJsonResponse(response);
 
   if (!response.ok || !data.success) {
     throw new Error(data.message || data.error || `Server error (${response.status})`);

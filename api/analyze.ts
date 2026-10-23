@@ -1,4 +1,4 @@
-import { analyzeReportWithGeminiServer } from '../server/geminiService.js';
+import { analyzeReportWithGeminiServer } from './_gemini.js';
 import { generateServerFallback } from './_fallback.js';
 import { getResolvedApiKey, readJsonBody, sendJson, handleCors } from './_utils.js';
 

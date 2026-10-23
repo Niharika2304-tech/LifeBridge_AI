@@ -1,5 +1,5 @@
-import { ExampleScenario, AnalysisResult } from '../types';
-import { VERIFIED_RESOURCES_INDIA, VERIFIED_RESOURCES_INTERNATIONAL } from './verifiedResources';
+import type { ExampleScenario, AnalysisResult } from '../types.js';
+import { VERIFIED_RESOURCES_INDIA, VERIFIED_RESOURCES_INTERNATIONAL } from './verifiedResources.js';
 
 export const EXAMPLE_SCENARIOS: ExampleScenario[] = [
   {

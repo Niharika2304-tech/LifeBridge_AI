@@ -1,4 +1,4 @@
-import { VerifiedResource } from '../types';
+import type { VerifiedResource } from '../types.js';
 
 export const VERIFIED_RESOURCES_INDIA: VerifiedResource[] = [
   // Health Resources (India)
